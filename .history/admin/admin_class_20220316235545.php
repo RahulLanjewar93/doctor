@@ -254,17 +254,13 @@ Class Action {
 		// $day = date('l',strtotime($date));
 		// $time = date('H:i',strtotime($time)).":00";
 		// $sched = date('H:i',strtotime($time));
-		$doc = $this->db->query("SELECT * FROM appointment_list where doctor_id = ".$doctor_id);
+		$doc = $this->db->query("SELECT * FROM appointment_list where doctor_id = ".$doctor_id. "AND date_created = ".$schedule);
 		$result = array();
-		// var_dump($doc);
+		var_dump($doc)
 		while($row = $doc -> fetch_assoc()){
-			// var_dump($row['schedule']);
-			if($row['schedule'] == $schedule){
-				return json_encode(array('status'=>2,"msg"=>"Time slot already booked for selected doctor's schedule."));
-			}
+			$result[] = $row;
 		}
-		// var_dump($result);
-		// return json_encode($result);
+		return json_encode($result);
 		return json_encode(array('status'=>1));
 
 	}

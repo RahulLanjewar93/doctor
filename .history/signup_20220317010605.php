@@ -65,7 +65,7 @@
 		if(!NameRegex.test(name)){
 			console.log('not valid')
 			$('#signup-frm').prepend(
-						'<div class="alert alert-danger">Name should only contain letters </div>')
+						'<div class="alert alert-danger">Name should only contain letters and spaces</div>')
 
 			return
 		}

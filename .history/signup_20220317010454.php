@@ -65,20 +65,20 @@
 		if(!NameRegex.test(name)){
 			console.log('not valid')
 			$('#signup-frm').prepend(
-						'<div class="alert alert-danger">Name should only contain letters </div>')
+						'<div class="alert alert-danger">Name is not valid</div>')
 
 			return
 		}
 		if(!ContactRegex.test(contact)){
 			$('#signup-frm').prepend(
-						'<div class="alert alert-danger">Contact should not contain any letters</div>')
+						'<div class="alert alert-danger">Contact is not valid</div>')
 			return
 
 		}
 		console.log('pl',password.length)
 		if(password.length < 6 ){
 			$('#signup-frm').prepend(
-						'<div class="alert alert-danger">Password must be atleast 6 characters</div>')
+						'<div class="alert alert-danger">Contact is not valid</div>')
 			return
 
 		}

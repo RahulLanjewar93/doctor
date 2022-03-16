@@ -19,7 +19,7 @@
 		</div>
 		<div class="form-group">
 			<label for="" class="control-label">Password</label>
-			<input type="password" name="password" id="password" required  class="form-control">
+			<input type="password" name="password" required min="6" class="form-control">
 		</div>
 		<button class="button btn btn-info btn-sm">Create</button>
 	</form>
@@ -61,26 +61,24 @@
 		var ContactRegex =  /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 		const name = $("#name").val();
 		const contact = $("#contact").val();
-		const password = $("#password").val()
+		console.log("name",name,typeof(name))
+		console.log("contact",contact)
 		if(!NameRegex.test(name)){
 			console.log('not valid')
 			$('#signup-frm').prepend(
-						'<div class="alert alert-danger">Name should only contain letters </div>')
+						'<div class="alert alert-danger">Name is not valid</div>')
 
 			return
+		}else{
+			console.log('name is valid')
 		}
 		if(!ContactRegex.test(contact)){
 			$('#signup-frm').prepend(
-						'<div class="alert alert-danger">Contact should not contain any letters</div>')
+						'<div class="alert alert-danger">Contact is not valid</div>')
 			return
 
-		}
-		console.log('pl',password.length)
-		if(password.length < 6 ){
-			$('#signup-frm').prepend(
-						'<div class="alert alert-danger">Password must be atleast 6 characters</div>')
-			return
-
+		}else{
+			console.log('phone is valid')
 		}
 		$('#signup-frm button[type="submit"]').attr('disabled', true).html('Saving...');
 		if ($(this).find('.alert-danger').length > 0)

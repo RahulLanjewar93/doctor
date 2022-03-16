@@ -48,35 +48,72 @@ include ('admin/db_connect.php')
     </div>
 </div>
 <script>
+    var appointments = [];
+
+    function getValidTimes() {
+        console.log('get_valid_times')
+        this.id = '<?php echo $_GET['
+        id '] ?>'
+        console.log(this.id)
+        $.ajax({
+            url: 'admin/ajax.php?action=get_valid_times',
+            method: 'POST',
+            data: {
+                doctor_id: '<?php echo $_GET['
+                id '] ?>'
+            },
+            success: function (resp) {
+                resp = JSON.parse(resp)
+                appointments = resp
+                console.log('success', {
+                    resp
+                });
+                // if (resp.status == 1) {
+                //     alert_toast("Request submitted successfully");
+                //     end_load();
+                //     $('.modal').modal("hide");
+                // } else {
+                //     $('#msg').html('<div class="alert alert-danger">' + resp.msg + '</div>')
+                //     end_load();
+                // }
+                console.log("ap", appointments)
+            }
+        })
+    }
+
+    $(document).ready(getValidTimes())
+
     $("#manage-appointment").submit(function (e) {
         e.preventDefault()
         start_load()
-        const ogData = $(this).serialize();
+
         $.ajax({
             url: 'admin/ajax.php?action=check_slot',
             method: 'POST',
-            data: ogData,
+            data: $(this).serialize(),
             success: function (resp) {
                 resp = JSON.parse(resp)
                 if (resp.status == 1) {
                     $.ajax({
-                        url: 'admin/ajax.php?action=set_appointment',
-                        method: 'POST',
-                        data: ogData,
-                        success: function (resp) {
-                            resp = JSON.parse(resp)
-                            console.log('after appointment',resp)
-                            if (resp.status == 1) {
-                                alert_toast("Request submitted successfully");
-                                end_load();
-                                $('.modal').modal("hide");
-                            } else {
-                                $('#msg').html('<div class="alert alert-danger">' + resp
-                                    .msg + '</div>')
-                                end_load();
-                            }
+                    url: 'admin/ajax.php?action=set_appointment',
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function (resp) {
+                        resp = JSON.parse(resp)
+                        if (resp.status == 1) {
+                            alert_toast("Request submitted successfully");
+                            end_load();
+                            $('.modal').modal("hide");
+                        } else {
+                            $('#msg').html('<div class="alert alert-danger">' + resp
+                                .msg + '</div>')
+                            end_load();
                         }
-                    })
+                    }
+                })
+                    alert_toast("Request submitted successfully");
+                    end_load();
+                    $('.modal').modal("hide");
                 } else {
                     $('#msg').html('<div class="alert alert-danger">' + resp.msg + '</div>')
                     end_load();

@@ -65,7 +65,6 @@ include ('admin/db_connect.php')
                         data: ogData,
                         success: function (resp) {
                             resp = JSON.parse(resp)
-                            console.log('after appointment',resp)
                             if (resp.status == 1) {
                                 alert_toast("Request submitted successfully");
                                 end_load();
@@ -77,6 +76,9 @@ include ('admin/db_connect.php')
                             }
                         }
                     })
+                    alert_toast("Request submitted successfully");
+                    end_load();
+                    $('.modal').modal("hide");
                 } else {
                     $('#msg').html('<div class="alert alert-danger">' + resp.msg + '</div>')
                     end_load();

@@ -260,7 +260,7 @@ Class Action {
 		while($row = $doc -> fetch_assoc()){
 			// var_dump($row['schedule']);
 			if($row['schedule'] == $schedule){
-				return json_encode(array('status'=>2,"msg"=>"Time slot already booked for selected doctor's schedule."));
+				return json_encode(array('status'=>2,"msg"=>"Time slot already booked"));
 			}
 		}
 		// var_dump($result);

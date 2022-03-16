@@ -3,11 +3,11 @@
 	<form action="" id="signup-frm">
 		<div class="form-group">
 			<label for="" class="control-label">Name</label>
-			<input type="text" name="name" required id="name" class="form-control">
+			<input type="text" name="name" required class="form-control">
 		</div>
 		<div class="form-group">
 			<label for="" class="control-label">Contact</label>
-			<input type="text" name="contact" required id="contact" class="form-control">
+			<input type="number" name="contact" required class="form-control">
 		</div>
 		<div class="form-group">
 			<label for="" class="control-label">Address</label>
@@ -19,7 +19,7 @@
 		</div>
 		<div class="form-group">
 			<label for="" class="control-label">Password</label>
-			<input type="password" name="password" id="password" required  class="form-control">
+			<input type="password" name="password" required class="form-control">
 		</div>
 		<button class="button btn btn-info btn-sm">Create</button>
 	</form>
@@ -53,35 +53,13 @@
 </script>
 <script>
 
-
+	function validate(id) {
+    var regex = /^[a-zA-Z ]{2,30}$/;
+    var ctrl =  document.getElemetnById(id);
+    return regex.test(ctrl.value);
+}
 	$('#signup-frm').submit(function (e) {
 		e.preventDefault()
-		$(".alert").alert('close')
-    	var NameRegex = /^[a-zA-Z\s]*$/;
-		var ContactRegex =  /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-		const name = $("#name").val();
-		const contact = $("#contact").val();
-		const password = $("#password").val()
-		if(!NameRegex.test(name)){
-			console.log('not valid')
-			$('#signup-frm').prepend(
-						'<div class="alert alert-danger">Name should only contain letters </div>')
-
-			return
-		}
-		if(!ContactRegex.test(contact)){
-			$('#signup-frm').prepend(
-						'<div class="alert alert-danger">Contact should not contain any letters</div>')
-			return
-
-		}
-		console.log('pl',password.length)
-		if(password.length < 6 ){
-			$('#signup-frm').prepend(
-						'<div class="alert alert-danger">Password must be atleast 6 characters</div>')
-			return
-
-		}
 		$('#signup-frm button[type="submit"]').attr('disabled', true).html('Saving...');
 		if ($(this).find('.alert-danger').length > 0)
 			$(this).find('.alert-danger').remove();
